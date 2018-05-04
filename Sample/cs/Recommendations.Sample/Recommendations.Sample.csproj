@@ -107,12 +107,8 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <None Include="Resources\demoCatalog.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\demoUsage.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\demoCatalog.csv" />
+    <None Include="Resources\demoUsage.csv" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Recommendations.Client\Recommendations.Client.csproj">

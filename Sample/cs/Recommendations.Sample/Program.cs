@@ -32,6 +32,8 @@
  *     It is important to note that you copy your usage and evaluation files to distinct FOLDERs, 
  *     while you provide the location of the catalog FILE.
  *     
+ *    REPLACE THE DEMO FILES YOUR CATALOG AND USAGE FILES TO THE RESOURCES FOLER IN THIS PROJECT
+ *     
  *     Based on that, you will need to set the following variables: 
  *     blobContainerName, catalogFileRelativeLocation,
  *     usageFolderRelativeLocation and evaluationUsageFolderRelativeLocation 
@@ -57,9 +59,9 @@ namespace Recommendations.Sample
             // modify the lines below based on the values you received when the site was configured.
             // note that the connection string is only needed by the sample because it uploads some sample
             // data to create a recommendation model.
-            string recommendationsEndPointUri = "https://yoursite.azurewebsites.net";
-            string apiAdminKey = "your admin key goes here";
-            string connectionString = @"DefaultEndpointsProtocol=https;AccountName=yoursite;AccountKey=theAccountKeyProvidedToYouAtConfigurationTime";
+            string recommendationsEndPointUri = "YOUR END POINT HERE";
+            string apiAdminKey = "YOUR API ADMIN KEY HERE";
+            string connectionString = @"YOUR CONNECTION STRING HERE";
 
             // create recommendations client that allows us to work with the recommendations API
             var recommendationsClient = new RecommendationsAPI(new Uri(recommendationsEndPointUri));
@@ -74,7 +76,7 @@ namespace Recommendations.Sample
 
             #region Scoring Example 1: Getting some recommendations for item with ID DHF-01159 
 
-            string itemId = "DHF-01159";
+            string itemId = "1589"; // CHANGE TO YOUR ITEM ID
             Console.WriteLine($"Getting recommendations for item '{itemId}' using model '{modelId}':");
             IList<RecommendationResult> results = recommendationsClient.Models.GetItemRecommendations(modelId, itemId);
             PrintRecommendationResults(results);
@@ -102,15 +104,15 @@ namespace Recommendations.Sample
             {
                 new UsageEvent
                 {
-                    ItemId = "DAF-00448",
+                    ItemId = "D5PXBBD",
                     EventType = EventType.Purchase,
-                    Timestamp = new DateTime(2017, 2, 1)
+                    Timestamp = new DateTime(2017, 7, 25)
                 },
                 new UsageEvent
                 {
-                    ItemId = "DHF-01333",
+                    ItemId = "D3NXC",
                     EventType = EventType.Purchase,
-                    Timestamp = new DateTime(2017, 1, 31)
+                    Timestamp = new DateTime(2017, 7, 26)
                 }
             };
 
@@ -133,10 +135,10 @@ namespace Recommendations.Sample
         /// <returns>The id of the trained model</returns>
         static Guid TrainModelUsingSampleData(IRecommendationsAPI recommendationsClient, string storageAccountConnectionString)
         {
-            string sampleCatalogFileName = "demoCatalog.csv"; // the name of the sample catalog file that ships with this sample
-            string sampleUsageEventsFileName = "demoUsage.csv"; // the name of the sample usage events file that ships with this sample
-            string blobContainerName = "sample-data"; // the name of the blob container we'll create to host our files
-            string usageFolderName = "usageFiles"; // the name of the relative blob folder that will host the usage event file(s)
+            string sampleCatalogFileName = "YOUR CATALOG.CSV"; // the name of the sample catalog file that ships with this sample
+            string sampleUsageEventsFileName = "YOUR USAGE.CSV"; // the name of the sample usage events file that ships with this sample
+            string blobContainerName = "YOUR BLOB"; // the name of the blob container we'll create to host our files
+            string usageFolderName = "files"; // the name of the relative blob folder that will host the usage event file(s)
 
             Console.WriteLine("Uploading the sample files to the storage account...");
             var storageAccount = CloudStorageAccount.Parse(storageAccountConnectionString);
@@ -161,7 +163,7 @@ namespace Recommendations.Sample
             // now that the catalog & usage event files were uploaded, we can trigger a new model training
             // Set the training parameters
             var modelParameters = new ModelParameters(
-                description: "Sample created model",
+                description: "my test model",
                 blobContainerName: blobContainerName,
                 catalogFileRelativePath: sampleCatalogFileName, // the path to the uploaded catalog blob FILE 
                 usageRelativePath: usageFolderName, // the path to the blob folder containing the usage file(s)
